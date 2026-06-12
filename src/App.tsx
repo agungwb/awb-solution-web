@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logoAwb from './assets/logo-awb-2.png'; //
+import logoAwb from './assets/logo-awb/logo-awb-color-small.png'; //
 import { 
   Cpu, 
   Layers, 
@@ -219,7 +219,7 @@ export default function App() {
             <img 
               src={logoAwb} 
               alt="Logo AWB Solution" 
-              className="w-16 h-auto inline-block mr-2" // w-32 artinya width: 8rem atau 128px. h-auto menjaga proporsi rasio gambar
+              className="w-16 h-auto inline-block mr-2 opacity-85" // w-32 artinya width: 8rem atau 128px. h-auto menjaga proporsi rasio gambar
             /> 
             <span className="text-cyan-400 font-medium text-sm tracking-widest inline sm:inline sm:ml-1">SOLUTION</span>
             </span>
