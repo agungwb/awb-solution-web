@@ -433,7 +433,9 @@ export default function App() {
               </svg>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-4 relative z-10 min-w-[800px] lg:min-w-0">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4 relative z-10">
+
+            
               <div className="w-64 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 flex items-center space-x-4 relative group hover:border-slate-700 transition-all">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
                   <Play className="w-5 h-5 fill-current" />
@@ -485,25 +487,60 @@ export default function App() {
       </section>
 
       {/* --- 3. AI AGENT BOT SECTION --- */}
-      <section id="agents" className="py-24 bg-[#02050b] border-b border-slate-950 relative">
+      <section id="agents" className="py-16 sm:py-24 bg-[#02050b] border-b border-slate-950 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-md">
-                <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-xs font-mono font-bold tracking-wider text-emerald-300 uppercase">Autonomous Systems</span>
+          
+          {/* Layout Container Utama: 
+            - Flex Column untuk Mobile (agar bisa pakai fitur order-1, order-2, dst)
+            - Grid 12 Column untuk Desktop (agar rapi bersisian)
+          */}
+          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-0 lg:gap-12 lg:items-center">
+            
+            {/* Text Content Wrapper 
+              Trik 'contents': Di mobile dia transparan secara struktur, 
+              jadi anak-anaknya bisa di-reorder langsung bareng si Robot.
+            */}
+            <div className="contents lg:block lg:col-span-7 lg:space-y-6">
+              
+              {/* 1. BADGE & JUDUL (Tampil Paling Atas) */}
+              <div className="order-1 space-y-4 lg:space-y-6">
+                <div className="inline-flex items-center space-x-2 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1 rounded-md">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-emerald-300 uppercase">
+                    Autonomous Systems
+                  </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                  {t.agentTitle}
+                </h2>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">{t.agentTitle}</h2>
-              <p className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-2xl">{t.agentSub}</p>
-              <div className="pt-4">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center space-x-2.5 bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-800 hover:border-cyan-500/50 px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300"><Bot className="w-4 h-4" /><span>{t.agentCta}</span></a>
+
+              {/* 3. PENJELASAN / PEMAPARAN (Di bawah Robot pas Mobile) */}
+              <div className="order-3 mt-4 lg:mt-0">
+                <p className="text-slate-400 text-sm sm:text-lg leading-relaxed max-w-2xl">
+                  {t.agentSub}
+                </p>
               </div>
+
+              {/* 4. BUTTON (Tampil Paling Bawah pas Mobile) */}
+              <div className="order-4 mt-6 lg:mt-0">
+                {/* Di layar HP dibikin full-width biar gampang diklik (w-full), di desktop balik normal */}
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex justify-center sm:inline-flex w-full sm:w-auto items-center space-x-2.5 bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-800 hover:border-cyan-500/50 px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300">
+                  <Bot className="w-4 h-4" />
+                  <span>{t.agentCta}</span>
+                </a>
+              </div>
+
             </div>
 
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-72 h-80 sm:w-80 sm:h-96 bg-[#04091c]/60 border border-slate-800 rounded-3xl p-8 flex flex-col items-center justify-center shadow-2xl backdrop-blur-md group overflow-hidden">
+            {/* 2. GAMBAR ROBOT (Tampil di Tengah pas Mobile, Kanan pas Desktop) */}
+            <div className="order-2 lg:col-span-5 flex justify-center py-8 lg:py-0">
+              {/* Container diperkecil khusus mobile (w-64 h-72), balik besar di layar sm/lg */}
+              <div className="relative w-64 h-72 sm:w-80 sm:h-96 bg-[#04091c]/60 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center shadow-2xl backdrop-blur-md group overflow-hidden">
                 <div className="absolute -inset-px bg-gradient-to-b from-cyan-500/10 to-transparent rounded-3xl pointer-events-none" />
-                <div className="w-40 h-48 relative flex flex-col items-center transition-transform duration-500 group-hover:scale-105">
+                
+                {/* transform scale-90 dipakai biar skala robot mengecil rapi tanpa ngerusak elemen div dalamnya */}
+                <div className="w-40 h-48 relative flex flex-col items-center transition-transform duration-500 group-hover:scale-105 transform scale-90 sm:scale-100">
                   <div className="w-28 h-24 bg-gradient-to-b from-slate-800 to-slate-950 border-2 border-slate-700 rounded-2xl relative flex flex-col items-center justify-center shadow-inner">
                     <div className="absolute left-[-6px] top-4 w-2 h-12 bg-slate-700 border border-slate-600 rounded" />
                     <div className="absolute right-[-6px] top-4 w-2 h-12 bg-slate-700 border border-slate-600 rounded" />
@@ -513,73 +550,121 @@ export default function App() {
                   </div>
                   <div className="w-10 h-4 bg-slate-900 border-x border-slate-700" />
                   <div className="w-36 h-20 bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-slate-800 rounded-t-xl rounded-b-md p-3 relative">
-                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-950 border border-blue-500/40 flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-blue-400 animate-ping" /></div>
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-blue-950 border border-blue-500/40 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
       {/* --- 4. AI WORKFORCE HIERARCHY --- */}
-      <section id="workforce" className="py-24 bg-[#010306] border-b border-slate-950/80 relative overflow-hidden">
+      <section id="workforce" className="py-16 sm:py-24 bg-[#010306] border-b border-slate-950/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div className="lg:col-span-6 relative bg-[#030714]/60 border border-slate-800 rounded-3xl p-8 h-[420px] flex items-center justify-center overflow-hidden backdrop-blur-sm shadow-2xl">
-              <div className="absolute inset-0 pointer-events-none">
-                <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M 270 95 Q 140 160, 140 260" fill="none" stroke="#2563eb" strokeWidth="2" className="animated-dash-line" />
-                  <path d="M 270 95 L 270 260" fill="none" stroke="#22d3ee" strokeWidth="2" className="animated-dash-line" />
-                  <path d="M 270 95 Q 400 160, 400 260" fill="none" stroke="#2563eb" strokeWidth="2" className="animated-dash-line" />
-                </svg>
+          
+          {/* Container Layout: Flex-col (Mobile) atau Grid (Desktop) */}
+          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+
+            {/* TEXT WRAPPER (Judul & Pemaparan) 
+                lg:order-2 bikin teks ini pindah ke KANAN saat di layar Desktop 
+            */}
+            <div className="contents lg:block lg:col-span-6 lg:order-2">
+              
+              {/* 1. BADGE & JUDUL (Order 1 di Mobile) */}
+              <div className="order-1 space-y-4 lg:space-y-6">
+                <div className="inline-flex items-center space-x-2 bg-blue-950/40 border border-blue-500/30 px-3 py-1 rounded-md">
+                  <GitPullRequest className="w-3.5 h-3.5 text-blue-400" />
+                  <span className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-blue-300 uppercase">Scale Multiplication</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                  {t.workforceTitle}
+                </h2>
               </div>
-              <div className="relative w-full h-full flex flex-col justify-between items-center z-10">
-                <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-0.5 rounded-2xl shadow-[0_0_25px_rgba(37,99,235,0.4)]">
-                  <div className="bg-slate-950 px-6 py-3 rounded-[14px] flex items-center space-x-3 w-48">
-                    <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400"><User className="w-4 h-4" /></div>
-                    <div>
-                      <div className="text-xs text-slate-500 font-mono">COMMAND_NODE</div>
-                      <div className="text-sm font-bold text-white">CEO / Leader</div>
+
+              {/* 3. PEMAPARAN (Order 3 di Mobile, Muncrat ke Bawah Grafik) */}
+              <div className="order-3 mt-4 lg:mt-6 space-y-4 lg:space-y-6">
+                <p className="text-slate-400 text-sm sm:text-lg leading-relaxed">
+                  {t.workforceSub}
+                </p>
+                <div className="space-y-3 pt-2">
+                  {[t.workforcePoint1, t.workforcePoint2, t.workforcePoint3].map((point, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 shrink-0" />
+                      <span className="text-sm sm:text-base text-slate-300 font-medium">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* 2. GRAFIK (Order 2 di Mobile, Tengah-tengah) 
+                lg:order-1 bikin grafik ini pindah ke KIRI saat di layar Desktop
+            */}
+            <div className="order-2 lg:order-1 lg:col-span-6 w-full flex justify-center py-4 lg:py-0">
+              
+              {/* Kotak Wrapper Luar - Tingginya nyesuain HP vs Desktop biar ga kepotong */}
+              <div className="relative w-full max-w-lg bg-[#030714]/60 border border-slate-800 rounded-3xl h-[260px] sm:h-[340px] lg:h-[420px] flex items-center justify-center overflow-hidden backdrop-blur-sm shadow-2xl">
+                
+                {/* KANVAS SKALA FIX (Pusat presisi) - Mengecil di HP (scale-[0.55]), membesar di Desktop (scale-100) */}
+                <div className="relative w-[500px] shrink-0 h-[350px] scale-[0.55] sm:scale-[0.80] lg:scale-95 xl:scale-100 origin-center transition-transform duration-300">
+                  {/* Layer 1: Garis SVG (viewBox presisi ngikutin ukuran kanvas 500x350) */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <svg viewBox="0 0 500 350" className="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+                      {/* Garis Kiri (CEO -> Agent 1) */}
+                      <path d="M 250 90 Q 80 150, 80 240" fill="none" stroke="#2563eb" strokeWidth="2" className="animated-dash-line" />
+                      {/* Garis Tengah (CEO -> Agent 2) */}
+                      <path d="M 250 90 L 250 240" fill="none" stroke="#22d3ee" strokeWidth="2" className="animated-dash-line" />
+                      {/* Garis Kanan (CEO -> Agent 3) */}
+                      <path d="M 250 90 Q 420 150, 420 240" fill="none" stroke="#2563eb" strokeWidth="2" className="animated-dash-line" />
+                    </svg>
+                  </div>
+
+                  {/* Layer 2: Node CEO (Tengah Atas) */}
+                  <div className="absolute top-[30px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-cyan-500 p-0.5 rounded-2xl shadow-[0_0_25px_rgba(37,99,235,0.4)] z-10">
+                    <div className="bg-slate-950 px-6 py-3 rounded-[14px] flex items-center space-x-3 w-48">
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                        <User className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs text-slate-500 font-mono">COMMAND_NODE</div>
+                        <div className="text-sm font-bold text-white leading-tight">CEO / Leader</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex justify-between items-center w-full px-2">
-                  <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3 w-36 flex flex-col items-center text-center">
+
+                  {/* Layer 3: Agent Nodes (Bawah) */}
+                  {/* Agent 1 (Kiri) - Pake 16% */}
+                  <div className="absolute top-[240px] left-[16%] -translate-x-1/2 bg-slate-900/90 border border-slate-800 rounded-xl p-3 w-36 flex flex-col items-center text-center z-10">
                     <Database className="w-4 h-4 text-blue-400 mb-2" />
                     <div className="text-[10px] font-mono text-blue-400 font-bold uppercase">AI Agent 01</div>
                     <div className="text-xs font-bold text-slate-200 mt-0.5">Data Analyst</div>
                   </div>
-                  <div className="bg-slate-900/90 border-2 border-cyan-500 rounded-xl p-3 w-40 flex flex-col items-center text-center">
+
+                  {/* Agent 2 (Tengah) - Pake 1/2 */}
+                  <div className="absolute top-[240px] left-1/2 -translate-x-1/2 bg-slate-900/90 border-2 border-cyan-500 rounded-xl p-3 w-40 flex flex-col items-center text-center z-10 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                     <Terminal className="w-4 h-4 text-cyan-400 mb-2 animate-pulse" />
                     <div className="text-[10px] font-mono text-cyan-400 font-bold uppercase">AI Agent 02</div>
                     <div className="text-xs font-bold text-white mt-0.5">Ops Automator</div>
                   </div>
-                  <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-3 w-36 flex flex-col items-center text-center">
+
+                  {/* Agent 3 (Kanan) - Pake 84% */}
+                  <div className="absolute top-[240px] left-[84%] -translate-x-1/2 bg-slate-900/90 border border-slate-800 rounded-xl p-3 w-36 flex flex-col items-center text-center z-10">
                     <Network className="w-4 h-4 text-blue-400 mb-2" />
                     <div className="text-[10px] font-mono text-blue-400 font-bold uppercase">AI Agent 03</div>
                     <div className="text-xs font-bold text-slate-200 mt-0.5">DevOps Link</div>
                   </div>
+
                 </div>
+
               </div>
+
             </div>
 
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center space-x-2 bg-blue-950/40 border border-blue-500/30 px-3 py-1 rounded-md">
-                <GitPullRequest className="w-3.5 h-3.5 text-blue-400" />
-                <span className="text-xs font-mono font-bold tracking-wider text-blue-300 uppercase">Scale Multiplication</span>
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">{t.workforceTitle}</h2>
-              <p className="text-slate-400 text-base sm:text-lg leading-relaxed">{t.workforceSub}</p>
-              <div className="space-y-3 pt-2">
-                {[t.workforcePoint1, t.workforcePoint2, t.workforcePoint3].map((point, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                    <span className="text-sm text-slate-300 font-medium">{point}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
