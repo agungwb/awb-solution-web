@@ -290,14 +290,18 @@ export default function App() {
             href={whatsappUrl} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="inline-flex items-center space-x-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white px-8 py-4 rounded-xl font-bold text-base transition-all duration-300 transform hover:-translate-y-1 shadow-[0_10px_25px_rgba(16,185,129,0.2)]"
-            >
-            <MessageSquare className="w-5 h-5 text-white" />
+            className="w-full sm:w-auto whitespace-nowrap flex items-center justify-center space-x-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white px-8 sm:px-10 py-4 rounded-xl font-bold text-base transition-all duration-300 transform hover:-translate-y-1 shadow-[0_10px_25px_rgba(16,185,129,0.2)]"
+          >
+            <MessageSquare className="w-5 h-5 text-white shrink-0" />
             <span>{t.ctaPrimary}</span>
           </a>
-          <a href="#services" className="w-full sm:w-auto flex items-center justify-center space-x-2 bg-slate-900/60 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white px-8 py-4 rounded-xl font-semibold text-base transition-all duration-300">
+          
+          <a 
+            href="#services" 
+            className="w-full sm:w-auto whitespace-nowrap flex items-center justify-center space-x-2 bg-slate-900/60 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white px-8 sm:px-10 py-4 rounded-xl font-semibold text-base transition-all duration-300"
+          >
             <span>{t.ctaSecondary}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </a>
         </div>
       </section>
