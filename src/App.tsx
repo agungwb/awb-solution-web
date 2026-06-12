@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logoAwb from './assets/logo-awb-2.png'; //
 import { 
   Cpu, 
   Layers, 
   Zap, 
-  CheckCircle, 
   MessageSquare, 
   MapPin, 
   Phone, 
@@ -15,7 +14,6 @@ import {
   Database,
   Bot,
   Send,
-  GitCommit,
   Sparkles,
   User,
   GitPullRequest,
