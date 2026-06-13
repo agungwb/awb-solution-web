@@ -195,6 +195,19 @@ export default function App() {
           from, to { border-color: transparent }
           50% { border-color: #22d3ee; }
         }
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 35s linear infinite;
+          width: max-content;
+        }
+        /* Opsional: Berhenti saat di-hover */
+        .group:hover .animate-marquee {
+          animation-play-state: paused;
+        }
+        
       `}</style>
 
       {/* --- BACKGROUND ANIMATION LAYER --- */}
@@ -760,6 +773,93 @@ export default function App() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* --- 6. TECHNOLOGY STACK SECTION --- */}
+      <section id="tech-stack" className="py-16 md:py-24 bg-[#02040a] border-b border-slate-900 overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-10 text-center">
+          <div className="inline-flex items-center space-x-2 bg-slate-900/50 border border-slate-800 px-3 py-1 rounded-md mb-4 md:mb-6">
+            <Cpu className="w-3.5 h-3.5 text-slate-400" />
+            <span className="text-xs font-mono font-bold tracking-wider text-slate-300 uppercase">Tech Ecosystem</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-4 md:mb-6">
+            Powered by Next-Gen AI & Automation
+          </h2>
+          <p className="text-slate-400 text-xs sm:text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-4">
+            We leverage the most advanced open-source frameworks and enterprise infrastructure to orchestrate high-performance, scalable autonomous systems.
+          </p>
+        </div>
+
+        {/* Marquee Wrapper */}
+        <div className="relative flex overflow-x-hidden group pb-4 md:pb-8">
+          {/* Gradient Fades for smooth entry/exit effect */}
+          <div className="absolute top-0 bottom-0 left-0 w-20 sm:w-32 md:w-64 z-10 bg-gradient-to-r from-[#02040a] to-transparent pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-20 sm:w-32 md:w-64 z-10 bg-gradient-to-l from-[#02040a] to-transparent pointer-events-none" />
+
+          {/* Marquee Content - Margin gap responsif */}
+          <div className="flex animate-marquee gap-6 sm:gap-8 md:gap-12 py-6 md:py-8 items-center pl-6 sm:pl-8 md:pl-12">
+            {/* Array of tools rendered twice for the seamless infinite loop */}
+            {[
+              { name: "n8n", desc: "Visual workflow automation node engine.", icon: <Network className="w-6 h-6 text-cyan-400" /> },
+              { name: "OpenClaw AI", desc: "Robust open-source AI agent framework.", icon: <Cpu className="w-6 h-6 text-cyan-400" /> },
+              { name: "LangChain", desc: "Building blocks for LLM applications.", icon: <Link className="w-6 h-6 text-cyan-400" /> },
+              { name: "Haystack", desc: "End-to-end NLP and AI pipeline.", icon: <Layers className="w-6 h-6 text-cyan-400" /> },
+              { name: "LangGraph", desc: "Stateful orchestrator for multi-agent systems.", icon: <GitPullRequest className="w-6 h-6 text-cyan-400" /> },
+              { name: "CrewAI", desc: "Collaborative role-playing AI agent teams.", icon: <User className="w-6 h-6 text-cyan-400" /> },
+              { name: "AutoGen", desc: "Multi-agent conversation programming framework.", icon: <Bot className="w-6 h-6 text-cyan-400" /> },
+              { name: "Vercel AI", desc: "Seamless frontend integration for streaming AI.", icon: <Zap className="w-6 h-6 text-cyan-400" /> },
+              { name: "LlamaIndex", desc: "Data framework for context-augmented LLMs.", icon: <Database className="w-6 h-6 text-cyan-400" /> },
+              { name: "Flowise", desc: "Drag-and-drop UI for LangChain nodes.", icon: <Activity className="w-6 h-6 text-cyan-400" /> },
+            ].concat([
+              { name: "n8n", desc: "Visual workflow automation node engine.", icon: <Network className="w-6 h-6 text-cyan-400" /> },
+              { name: "OpenClaw AI", desc: "Robust open-source AI agent framework.", icon: <Cpu className="w-6 h-6 text-cyan-400" /> },
+              { name: "LangChain", desc: "Building blocks for LLM applications.", icon: <Link className="w-6 h-6 text-cyan-400" /> },
+              { name: "Haystack", desc: "End-to-end NLP and AI pipeline.", icon: <Layers className="w-6 h-6 text-cyan-400" /> },
+              { name: "LangGraph", desc: "Stateful orchestrator for multi-agent systems.", icon: <GitPullRequest className="w-6 h-6 text-cyan-400" /> },
+              { name: "CrewAI", desc: "Collaborative role-playing AI agent teams.", icon: <User className="w-6 h-6 text-cyan-400" /> },
+              { name: "AutoGen", desc: "Multi-agent conversation programming framework.", icon: <Bot className="w-6 h-6 text-cyan-400" /> },
+              { name: "Vercel AI", desc: "Seamless frontend integration for streaming AI.", icon: <Zap className="w-6 h-6 text-cyan-400" /> },
+              { name: "LlamaIndex", desc: "Data framework for context-augmented LLMs.", icon: <Database className="w-6 h-6 text-cyan-400" /> },
+              { name: "Flowise", desc: "Drag-and-drop UI for LangChain nodes.", icon: <Activity className="w-6 h-6 text-cyan-400" /> },
+            ]).map((tech, idx) => (
+              <div 
+                key={idx} 
+                // Dimensi responsif: Mobile -> Tablet (sm) -> Desktop (md)
+                className="flex items-center space-x-3 sm:space-x-4 md:space-x-5 bg-slate-900/40 border border-slate-800 hover:border-cyan-500/30 w-[220px] sm:w-[250px] md:w-[280px] h-[110px] sm:h-[125px] md:h-[140px] rounded-2xl p-4 sm:p-5 md:p-6 backdrop-blur-sm transition-all duration-300 shadow-lg shrink-0 hover:-translate-y-1 hover:shadow-[0_5px_15px_rgba(34,211,238,0.08)] group/card"
+              >
+                {/* Container Ikon Responsif */}
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl bg-slate-950/80 flex items-center justify-center border border-slate-800 shadow-inner group-hover/card:border-cyan-500/40 transition-colors shrink-0">
+                  {/* Skala Ikon dikecilkan di mobile biar gak nabrak padding */}
+                  <div className="transform scale-75 sm:scale-90 md:scale-100 flex items-center justify-center">
+                    {tech.icon}
+                  </div>
+                </div>
+                
+                {/* Container Teks Responsif */}
+                <div className="flex flex-col space-y-1 md:space-y-2 whitespace-normal">
+                  <span className="text-[11px] sm:text-[12px] md:text-[13px] font-mono font-bold text-slate-300 group-hover/card:text-cyan-100 transition-colors tracking-wide">
+                    {tech.name}
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] md:text-[11px] font-mono text-slate-500 leading-snug md:leading-relaxed line-clamp-2 md:line-clamp-3">
+                    {tech.desc}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* --- Garis Horizontal Futuristik --- */}
+        <div className="relative max-w-4xl mx-auto px-8 mt-2 md:mt-6 pb-8">
+          {/* Glow shadow di belakang garis */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-3/4 h-4 bg-cyan-500/10 blur-xl pointer-events-none" />
+          
+          {/* Garis gradasi utama */}
+          <div className="h-[1px] md:h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent relative opacity-70">
+            {/* Titik fokus (dot) di tengah garis dengan animasi pulse */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-cyan-100 rounded-full shadow-[0_0_12px_#22d3ee] animate-pulse" />
+          </div>
         </div>
       </section>
 

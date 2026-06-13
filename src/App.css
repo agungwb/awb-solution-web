@@ -40,3 +40,18 @@
 .read-the-docs {
   color: #888;
 }
+
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+  width: max-content;
+}
+/* Opsional: Berhenti saat di-hover */
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
